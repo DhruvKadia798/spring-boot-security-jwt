@@ -1,4 +1,4 @@
-package com.web.models;
+package com.web.mode;
 
 import javax.persistence.*;
 

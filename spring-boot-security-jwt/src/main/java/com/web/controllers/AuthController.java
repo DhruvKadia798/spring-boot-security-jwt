@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.jwt.JwtUtils;
-import com.web.models.Author;
-import com.web.models.ERole;
-import com.web.models.Role;
-import com.web.models.User;
+import com.web.mode.Author;
+import com.web.mode.ERole;
+import com.web.mode.Role;
+import com.web.mode.User;
 import com.web.repository.RoleRepository;
 import com.web.repository.UserRepository;
 import com.web.repository.AuthorRepository;
@@ -35,7 +35,7 @@ import com.web.request.LoginRequest;
 import com.web.request.SignupRequest;
 import com.web.response.JwtResponse;
 import com.web.response.MessageResponse;
-import com.web.services.UserDetailsImpl;
+import com.web.security.UserDetailsImpl;
 import com.web.utils.AjaxResponseBody;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -86,59 +86,61 @@ public class AuthController {
 	  AjaxResponseBody result = new AjaxResponseBody();
 	  
 	  
-	if(signUpRequest.getName() == "" || signUpRequest.getName() == null)  {
-		System.out.println("come is empty");
+	if(signUpRequest.getName().trim().isEmpty() || signUpRequest.getName() == null)  {
 		result.setCode("500");
 		result.setMsg("Name field is required");
 		result.setResult(null);
 		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
 	}
 	
-	if(signUpRequest.getUsername() == "" || signUpRequest.getUsername() == null)  {
+	if(signUpRequest.getUsername().trim().isEmpty() || signUpRequest.getUsername() == null)  {
 		result.setCode("500");
 		result.setMsg("Username field is required");
 		result.setResult(null);
 		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
 	}
 	
-	if(signUpRequest.getEmail() == "" || signUpRequest.getEmail() == null)  {
+	if(signUpRequest.getEmail().trim().isEmpty() || signUpRequest.getEmail() == null)  {
 		result.setCode("500");
 		result.setMsg("Email field is required");
 		result.setResult(null);
 		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
 	}
 	
-	if(signUpRequest.getPassword() == "" || signUpRequest.getPassword() == null)  {
+	if(signUpRequest.getPassword().trim().isEmpty() || signUpRequest.getPassword() == null)  {
 		result.setCode("500");
 		result.setMsg("Password field is required");
 		result.setResult(null);
 		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
 	}
 	
-	if(signUpRequest.getPhoto() == "" || signUpRequest.getPhoto() == null)  {
+	if(signUpRequest.getPhoto().trim().isEmpty() || signUpRequest.getPhoto() == null)  {
 		result.setCode("500");
 		result.setMsg("Photo field is required");
 		result.setResult(null);
 		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
 	}
 	
-	if(signUpRequest.getAge() == "" || signUpRequest.getAge() == null)  {
+	if(signUpRequest.getAge().trim().isEmpty() || signUpRequest.getAge() == null)  {
 		result.setCode("500");
 		result.setMsg("Age field is required");
 		result.setResult(null);
 		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
 	}
 	  
+	
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-      return ResponseEntity
-          .badRequest()
-          .body(new MessageResponse("Error: Username is already taken!"));
+    	result.setCode("500");
+		result.setMsg("Error: Username is already taken!");
+		result.setResult(null);
+		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-      return ResponseEntity
-          .badRequest()
-          .body(new MessageResponse("Error: Email is already in use!"));
+    	result.setCode("500");
+		result.setMsg("Error: Email is already in use!");
+		result.setResult(null);
+		return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
     }
 
     // Create new user's account

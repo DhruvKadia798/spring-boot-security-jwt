@@ -1,4 +1,4 @@
-package com.web.models;
+package com.web.mode;
 
 public enum ERole {
   ROLE_USER,

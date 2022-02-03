@@ -1,4 +1,4 @@
-package com.web.services;
+package com.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.web.models.User;
+import com.web.mode.User;
 import com.web.repository.UserRepository;
 
 @Service

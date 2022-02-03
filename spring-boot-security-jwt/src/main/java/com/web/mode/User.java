@@ -1,4 +1,4 @@
-package com.web.models;
+package com.web.mode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +31,8 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
+  
+  private boolean enabled;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
@@ -86,4 +88,12 @@ public class User {
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
+  
+  public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }
